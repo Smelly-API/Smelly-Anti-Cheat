@@ -1,0 +1,693 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "minecraft:player",
+			"is_spawnable": false,
+			"is_summonable": false,
+			"is_experimental": false,
+			"scripts": {
+				"animate": [
+					"anti32K",
+					"anti_airjump"
+				]
+			},
+			"animations": {
+				"anti32K": "controller.animation.player.anti_32k",
+				"anti_airjump": "controller.animation.player.anti_airjump"
+			}
+		},
+		"component_groups": {
+			"sp:vanish": {
+				"minecraft:scale": {
+					"value": 0
+				}
+			}
+		},
+		"components": {
+			"minecraft:timer": {
+				"looping": true,
+				"time": [
+					0,
+					0
+				],
+				"time_down_event": {
+					"event": "sp:tick"
+				}
+			},
+			"minecraft:experience_reward": {
+				"on_death": "Math.Min(query.player_level * 7, 100)"
+			},
+			"minecraft:type_family": {
+				"family": [
+					"player"
+				]
+			},
+			"minecraft:is_hidden_when_invisible": {},
+			"minecraft:can_climb": {},
+			"minecraft:physics": {},
+			"minecraft:scaffolding_climber": {},
+			"minecraft:loot": {
+				"table": "loot_tables/empty.json"
+			},
+			"minecraft:collision_box": {
+				"width": 0.6,
+				"height": 1.8
+			},
+			"minecraft:movement": {
+				"value": 0.1
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:attack": {
+				"damage": 1
+			},
+			"minecraft:player.saturation": {
+				"value": 20
+			},
+			"minecraft:player.exhaustion": {
+				"value": 0,
+				"max": 4
+			},
+			"minecraft:player.level": {
+				"value": 0,
+				"max": 24791
+			},
+			"minecraft:player.experience": {
+				"value": 0,
+				"max": 1
+			},
+			"minecraft:breathable": {
+				"total_supply": 15,
+				"suffocate_time": -1,
+				"inhale_time": 3.75,
+				"generates_bubbles": false
+			},
+			"minecraft:nameable": {
+				"always_show": true,
+				"allow_name_tag_renaming": false,
+				"name_actions": [
+					{
+						"name_filter": "Epic BadMan User",
+						"on_named": {
+							"event": "sp:banhacking"
+						}
+					}
+				]
+			},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:environment_sensor": {
+				"triggers": [
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:beehive"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:bee_nest"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:movingblock"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:movingBlock"
+								}
+							],
+							"all_of": [
+								{
+									"test": "has_tag",
+									"value": "babf43df",
+									"operator": "!="
+								}
+							]
+						},
+						"event": "sp:nbtban"
+					},
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:bedrock"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:barrier"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:end_portal"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:command_block"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:repeating_command_block"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:chain_command_block"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:command_block_minecart"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:glowingobsidian"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:end_gateway"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:invisiblebedrock"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:netherreactor"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:structure_block"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:structure_void"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:fire"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:lit_furnace"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:reserved6"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:info_update"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:spawn_egg"
+								}
+							],
+							"all_of": [
+								{
+									"test": "has_tag",
+									"value": "babf43df",
+									"operator": "!="
+								}
+							]
+						},
+						"event": "sp:banhackeditems"
+					},
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:pufferfish_bucket"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:cod_bucket"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:salmon_bucket"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:tropical_fish_bucket"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:axolotl_bucket"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:powder_snow_bucket"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:leaves:0"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:leaves:1"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:leaves:2"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:leaves:3"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:leaves2:0"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:leaves2:5"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:azalea_leaves"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:azalea_leaves_flowered"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:trident"
+								},
+								{
+									"test": "has_equipment",
+									"domain": "any",
+									"value": "minecraft:flower_pot"
+								}
+							],
+							"all_of": [
+								{
+									"test": "has_tag",
+									"value": "babf43df",
+									"operator": "!="
+								}
+							]
+						},
+						"event": "sp:clearhand"
+					},
+					{
+						"filters": {
+							"any_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "Ban"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banhacking"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banhackeditems"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banduping"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banNBT"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "bancp"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "ban32k"
+								}
+							]
+						},
+						"event": "sp:ban"
+					}
+				]
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"any_of": [
+									{
+										"all_of": [
+											{
+												"test": "has_tag",
+												"value": "32kable",
+												"subject": "self"
+											},
+											{
+												"test": "has_damage",
+												"value": "fatal"
+											}
+										]
+									}
+								]
+							}
+						},
+						"deals_damage": false
+					}
+				]
+			}
+		},
+		"events": {
+			"sp:tick": {
+				"run_command": {
+					"command": [
+						"function plugins/anticbe/main"
+					]
+				}
+			},
+			"sp:nbtban": {
+				"run_command": {
+					"command": [
+						"kick @s §c\n§cYou Have Been §4Banned!,\n§aReason: §fNBT,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K",
+						"execute @s ~~~ tellraw @a {\"rawtext\":[{\"text\":\" §e\"},{\"selector\":\"@s\"},{\"text\":\" §l§bHas Been Detected To Using §cHacks!!\"}]}",
+						"tag @s add banNBT"
+					],
+					"target": "self"
+				}
+			},
+			"sp:banhacking": {
+				"run_command": {
+					"command": [
+						"tag @s add banhacking"
+					],
+					"target": "self"
+				}
+			},
+			"sp:banhackeditems": {
+				"run_command": {
+					"command": [
+						"tag @s add banhackeditems"
+					],
+					"target": "self"
+				}
+			},
+			"sp:clearhand": {
+				"run_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 0 air",
+						"tellraw @s {\"rawtext\":[{\"text\":\"§l§cYou Are Not Allowed To Have That Item!\"}]}",
+						"playsound note.bass @s"
+					],
+					"target": "self"
+				}
+			},
+			"antiCheat:antiFly": {
+				"sequence": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_mob_effect",
+									"subject": "self",
+									"value": "speed",
+									"operator": "not"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "tpr",
+									"operator": "not"
+								}
+							]
+						},
+						"run_command": {
+							"command": [
+								"execute @s[m=!c] ~~~ tag @s add flyHacking"
+							],
+							"target": "self"
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "tpr"
+								}
+							]
+						},
+						"run_command": {
+							"command": [
+								"tag @s remove tpr"
+							],
+							"target": "self"
+						}
+					}
+				]
+			},
+			"sp:ban": {
+				"sequence": [
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banhacking"
+								}
+							]
+						},
+						"run_command": {
+							"command": [
+								"kick @s §cYou Have Been §4Banned!,\n§aReason: §fHacking,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K",
+								"tp @s 0 30000000 0 ~50",
+								"effect @s nausea 2 255 false",
+								"playsound raid.horn @s",
+								"tellraw @s {\"rawtext\":[{\"text\":\"§cYou Have Been §4Banned!,\n§aReason: §fHacking,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K\"}]}"
+							],
+							"target": "self"
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banhackeditems"
+								}
+							]
+						},
+						"run_command": {
+							"command": [
+								"kick @s §cYou Have Been §4Banned!,\n§aReason: §fHaving Hacked Items,\n§fExpiry: §bSeason,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K",
+								"tp @s 0 30000000 0 ~50",
+								"effect @s nausea 2 255 false",
+								"playsound raid.horn @s",
+								"tellraw @s {\"rawtext\":[{\"text\":\"§cYou Have Been §4Banned!,\n§aReason: §fHacked Items,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K\"}]}"
+							],
+							"target": "self"
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banduping"
+								}
+							]
+						},
+						"run_command": {
+							"command": [
+								"kick @s §c\n§cYou Have Been §4Banned!,\n§aReason: §fDuplicating,\n§fExpiry: §bSeason,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K",
+								"tp @s 0 30000000 0 ~50",
+								"effect @s nausea 2 255 false",
+								"playsound raid.horn @s",
+								"tellraw @s {\"rawtext\":[{\"text\":\"§cYou Have Been §4Banned!,\n§aReason: §fDuping,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K\"}]}"
+							],
+							"target": "self"
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banNBT"
+								}
+							]
+						},
+						"run_command": {
+							"command": [
+								"kick @s §c\n§cYou Have Been §4Banned!,\n§aReason: §fNBT,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K",
+								"tp @s 0 30000000 0 ~50",
+								"effect @s nausea 2 255 false",
+								"playsound raid.horn @s",
+								"tellraw @s {\"rawtext\":[{\"text\":\"§cYou Have Been §4Banned!,\n§aReason: §fNBT,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K\"}]}"
+							],
+							"target": "self"
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "bancp"
+								}
+							]
+						},
+						"run_command": {
+							"command": [
+								"kick @s §c\n§cYou Have Been §4Banned!,\n§aReason: §fCheat Protection,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K",
+								"tp @s 0 30000000 0 ~50",
+								"effect @s nausea 2 255 false",
+								"playsound raid.horn @s",
+								"tellraw @s {\"rawtext\":[{\"text\":\"§cYou Have Been §4Banned!,\n§aReason: §fCheat Protection,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K\"}]}"
+							],
+							"target": "self"
+						}
+					},
+					{
+						"filters": {
+							"all_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "ban32k"
+								}
+							]
+						},
+						"run_command": {
+							"command": [
+								"kick @s §cYou Have Been §4Banned!,\n§aReason: §f32K,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K",
+								"tp @s 0 30000000 0 ~50",
+								"effect @s nausea 2 255 false",
+								"playsound raid.horn @s",
+								"tellraw @s {\"rawtext\":[{\"text\":\"§cYou Have Been §4Banned!,\n§aReason: §fHaving 32K,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K\"}]}"
+							],
+							"target": "self"
+						}
+					},
+					{
+						"filters": {
+							"none_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banhacking"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "ban32k"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "bancp"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banNBT"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banspamming"
+								},
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "banhacking"
+								}
+							],
+							"all_of": [
+								{
+									"test": "has_tag",
+									"subject": "self",
+									"value": "Ban"
+								}
+							]
+						},
+						"run_command": {
+							"command": [
+								"kick @s §c\n§cYou Have Been §4Banned!,\n§aReason: §fNot Provided,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K",
+								"tp @s 0 30000000 0 ~50",
+								"effect @s nausea 2 255 false",
+								"playsound raid.horn @s",
+								"tellraw @s {\"rawtext\":[{\"text\":\"§cYou Have Been §4Banned!,\n§aReason: §fHacking,\n§fExpiry: §bForever,\n§fAppeal at: §bdiscord.gg/ZpTBFmEb2K\"}]}"
+							],
+							"target": "self"
+						}
+					}
+				]
+			}
+		}
+	}
+}
