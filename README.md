@@ -68,7 +68,7 @@ if you want to get your realm in here please join the discord https://discord.gg
   
 ## Contributing
 
-Contributions are always welcome! 
+Contributions are always welcome!  
 
 Join `https://discord.gg/dMa3A5UYKX` on Discord for ways to get started.
 
