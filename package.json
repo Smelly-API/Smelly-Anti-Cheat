@@ -1,0 +1,23 @@
+{
+  "name": "smelly-anti-cheat",
+  "version": "1.0.1",
+  "description": "Best minecraft bedrock anticheat",
+  "main": "scripts/index.js",
+  "scripts": {
+    "test": "Commands.run(`say hey`)"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smell-of-curry/Smelly-Anti-Cheat.git"
+  },
+  "keywords": [
+    "anticheat",
+    "minecraft"
+  ],
+  "author": "Smell of curry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smell-of-curry/Smelly-Anti-Cheat/issues"
+  },
+  "homepage": "https://github.com/smell-of-curry/Smelly-Anti-Cheat#readme"
+}
