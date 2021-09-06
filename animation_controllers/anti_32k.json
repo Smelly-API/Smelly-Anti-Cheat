@@ -1,0 +1,29 @@
+{
+    "format_version": "1.16.0",
+    "animation_controllers": {
+      "controller.animation.player.anti_32k": {
+        "states": {
+          "default": {
+            "transitions": [
+              {
+                "open": "query.health > 16"
+              }
+            ],
+            "on_exit": [
+              "/tag @s add 32kable"
+            ]
+          },
+          "open": {
+            "transitions": [
+              {
+                "default": "query.health < 16 && query.is_alive"
+              }
+            ],
+            "on_exit": [
+              "/tag @s remove 32kable"
+            ]
+          }
+        }
+      }
+    }
+  }

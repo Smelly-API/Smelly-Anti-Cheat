@@ -1,0 +1,26 @@
+{
+    "format_version": "1.16.0",
+    "animation_controllers": {
+      "controller.animation.player.anti_airjump": {
+        "states": {
+          "default": {
+            "transitions": [
+              {
+                "open": "query.is_jumping == 1.0"
+              }
+            ],
+            "on_exit": [
+              "/function plugins/antiairjump/test"
+            ]
+          },
+          "open": {
+            "transitions": [
+              {
+                "default": "query.is_jumping == 0.0"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
