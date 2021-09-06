@@ -1,7 +1,7 @@
 
 # Smelly Anti Cheat
 
-Create a Smelly Anti Cheat in Minecraft bedrock This can be used for a lot of things like shops/warps and more customize the pack how you want.
+Best Anti cheat on minecraft bedrock, protects against almost every hack and will constally be updating!
 
 
 ## Acknowledgements
