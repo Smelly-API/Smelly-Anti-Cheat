@@ -4,7 +4,7 @@
   "description": "Best minecraft bedrock anticheat",
   "main": "scripts/index.js",
   "scripts": {
-    "test": "Commands.run(`say hey`)"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
