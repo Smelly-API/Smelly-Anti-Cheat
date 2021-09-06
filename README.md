@@ -1,15 +1,14 @@
 
 # Smelly Anti Cheat
 
-Create a Smelly Anti Cheat in Minecraft bedrock This can be used for a lot of things like shops/warps and more customize the pack how you want.
+Best Anti cheat on minecraft bedrock, protects against almost every hack and will constally be updating!
 
 
 ## Acknowledgements
 
  - [Smell of Curry YT](https://www.youtube.com/c/SmellofCurry)
- - [GUI Download Sorce](https://mcbehub.com/addons/server-gui-minecraft-addon)
- - [Smelly Anti Cheat v1 Video](https://www.youtube.com/watch?v=Z9Lv_pKiAHA)
- - [Smelly Anti Cheat v2 Video](https://www.youtube.com/watch?v=64kYH32vVVY)
+ - [Download Anti-Cheat BEH](https://mcbehub.com/addons/server-gui-minecraft-addon)
+ - [Download Anti-Cheat RES](https://mcbehub.com/addons/server-gui-minecraft-addon)
 
   
 ## Authors
@@ -20,7 +19,7 @@ Create a Smelly Anti Cheat in Minecraft bedrock This can be used for a lot of th
   
 ## Feedback
 
-If you have any feedback, please reach out to us on our discord https://discord.gg/jfQeGqVsxA
+If you have any feedback, please reach out to us on our discord https://discord.gg/dMa3A5UYKX
 
   
 ## Installation
@@ -31,13 +30,10 @@ Install Smelly Anti Cheat at https://mcbehub.com/addons/server-gui-minecraft-add
   Download Latest Version
   Add Addon to Your World
 ```
-    
-![Logo](https://i.ytimg.com/vi/64kYH32vVVY/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBxJIDIu-7dzzvaVdvPmeDarmX2Vg)
-
-    
+        
 ## Support
 
-For support, Join Our Discord https://discord.gg/jfQeGqVsxA.
+For support, Join Our Discord https://discord.gg/dMa3A5UYKX.
 
   
 ## License
@@ -48,7 +44,7 @@ For support, Join Our Discord https://discord.gg/jfQeGqVsxA.
 ## Used By
 
 This project is used by the following Servers:
-if you want to get your realm in here please join the discord https://discord.gg/jfQeGqVsxA
+if you want to get your realm in here please join the discord https://discord.gg/dMa3A5UYKX
 
 - Outcast Prisons
 - Orgin Prisons
@@ -57,12 +53,14 @@ if you want to get your realm in here please join the discord https://discord.gg
   
 ## Features
 
-- Custom Clickable Item
-- Editable Names
-- Player Customization
-- Dialouge Template
-
+- Anti Fly
+- Anti Jetpack
+- Anti Teleport
+- Anti NBT
+- Anti Air-Jump
+- Anti Auto Totem
   
+
 ## Documentation
 
 [Documentation](https://mcbehub.com/realmdocs/custom-gui)
@@ -72,6 +70,6 @@ if you want to get your realm in here please join the discord https://discord.gg
 
 Contributions are always welcome!
 
-Join `https://discord.gg/jfQeGqVsxA` on Discord for ways to get started.
+Join `https://discord.gg/dMa3A5UYKX` on Discord for ways to get started.
 
   
