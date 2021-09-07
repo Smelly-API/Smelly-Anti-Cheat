@@ -1,1 +1,2 @@
 function plugins/pluginman
+function events/eventsman

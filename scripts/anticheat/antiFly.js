@@ -21,8 +21,6 @@ export function antiFly() {
             const distanceX = parseInt(getDistanceX(player, oldX))
             const distanceZ = parseInt(getDistanceZ(player, oldZ))
 
-            
-            
             if (distanceX > 20 || distanceZ > 20) {
               runCommand(`execute "${player.name}" ~~~ event entity @s antiCheat:antiFly`)
               const flyHackingTag = hasTag(player.name, "flyHacking")

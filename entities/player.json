@@ -392,6 +392,21 @@
 			"minecraft:damage_sensor": {
 				"triggers": [
 					{
+						"cause": "entity_attack",
+						"on_damage": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"value": "player",
+										"subject": "other"
+									}
+								]
+							},
+							"event": "sp:anticombatlog"
+						}
+					},
+					{
 						"on_damage": {
 							"filters": {
 								"any_of": [
@@ -414,13 +429,33 @@
 						"deals_damage": false
 					}
 				]
+			},
+			"minecraft:on_death": {
+				"event": "sp:on_death"
 			}
 		},
 		"events": {
+			"sp:anticombatlog": {
+				"run_command": {
+					"command": [
+						"function tick/runtimer/anticheat/anticombatlog/main"
+					],
+					"target": "self"
+				}
+			},
+			"sp:on_death": {
+				"run_command": {
+					"command": [
+						"function events/onDeath/onDeath"
+					],
+					"target": "self"
+				}
+			},
 			"sp:tick": {
 				"run_command": {
 					"command": [
-						"function plugins/anticbe/main"
+						"function plugins/anticbe/main",
+						"function timers/second/secondman"
 					]
 				}
 			},

@@ -1,0 +1,1 @@
+function events/onCombat/removeTime
