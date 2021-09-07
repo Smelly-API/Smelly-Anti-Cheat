@@ -1,5 +1,5 @@
 import { World, Commands } from "Minecraft"
-import { getTags } from "../includes/functions.js"
+import { getTags, runCommand } from "../includes/functions.js"
 
 
 export function beforeChat(data) {
@@ -21,7 +21,7 @@ export function beforeChat(data) {
             }
         }
         if (rank == undefined) rank = "§bMember"
-        Commands.run(`tellraw @a {"rawtext":[{"text":"§8[§r${rank}§r§8] §7${sender.name}:§r ${message}"}]}`)
+        runCommand(`tellraw @a {"rawtext":[{"text":"§8[§r${rank}§r§8] §7${sender.name}:§r ${message}"}]}`)
     } else {
 
     }

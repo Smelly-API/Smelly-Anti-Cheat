@@ -1,5 +1,5 @@
 import { World, Commands } from "Minecraft"
-import { getDistanceX, getDistanceY, getDistanceZ, hasTag } from "../includes/functions.js"
+import { getDistanceX, getDistanceY, getDistanceZ, hasTag, runCommand } from "../includes/functions.js"
 
 const playersOldX = new Map();
 const playersOldY = new Map();
@@ -24,12 +24,12 @@ export function antiFly() {
             
             
             if (distanceX > 20 || distanceZ > 20) {
-              Commands.run(`execute "${player.name}" ~~~ event entity @s antiCheat:antiFly`)
+              runCommand(`execute "${player.name}" ~~~ event entity @s antiCheat:antiFly`)
               const flyHackingTag = hasTag(player.name, "flyHacking")
               if (flyHackingTag) {
-                Commands.run(`execute "${player.name}" ~~~ execute @s[m=!c] ~~~ tp @s ${oldX} ${oldY - 1} ${oldZ}`)
-                Commands.run(`execute "${player.name}" ~~~ tag @s remove flyHacking`)
-                Commands.run(`execute "${player.name}" ~~~ tag @s remove tpr`)
+                runCommand(`execute "${player.name}" ~~~ execute @s[m=!c] ~~~ tp @s ${oldX} ${oldY - 1} ${oldZ}`)
+                runCommand(`execute "${player.name}" ~~~ tag @s remove flyHacking`)
+                runCommand(`execute "${player.name}" ~~~ tag @s remove tpr`)
               }
             }
         }

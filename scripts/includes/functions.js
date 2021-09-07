@@ -1,7 +1,7 @@
 import { World, Commands } from "Minecraft"
 
 export function hasTag(target, testtag) {
-    const command = Commands.run(`tag "${target}" list`)
+    const command = runCommand(`tag "${target}" list`)
     const raw = command.statusMessage.split(' ')
     const tags = []
     for (const string of raw) {
@@ -16,12 +16,12 @@ export function hasTag(target, testtag) {
 }
 
 export function ban(target, reason = "None Provided", time = "perm") {
-    Commands.run(`kick "${target}" You Have Been Banned!\nReason: ${reason}\nExpiery: ${time}\nAppeal At: Discord`)
+    runCommand(`kick "${target}" You Have Been Banned!\nReason: ${reason}\nExpiery: ${time}\nAppeal At: Discord`)
 }
 
 
 export function getTags(target) {
-    const command = Commands.run(`tag "${target}" list`)
+    const command = runCommand(`tag "${target}" list`)
     const raw = command.statusMessage.split(' ')
     const tags = []
     for (const string of raw) {
@@ -32,7 +32,7 @@ export function getTags(target) {
 }
 
 export function getScore(objective, player, { minimum, maximum } = {}) {
-    const data = Commands.run(`scoreboard players test "${player}" ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
+    const data = runCommand(`scoreboard players test "${player}" ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
     if (!data.statusMessage) return;
     return parseInt(data.statusMessage.match(/-?\d+/)[0]);
 };
@@ -53,4 +53,12 @@ export function getDistanceZ(target, oldZ) {
     const playerZ = Math.round(target.location.z)
     const distanceZ = Math.abs(playerZ - oldZ)
     return distanceZ
+};
+
+export function runCommand(command) {
+    try {
+        return { error: false, ...Commands.run(command) };
+    } catch(error) {
+        return { error: true };
+    };
 };
