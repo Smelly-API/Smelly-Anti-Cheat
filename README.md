@@ -7,8 +7,8 @@ Best Anti cheat on minecraft bedrock, protects against almost every hack and wil
 ## Acknowledgements
 
  - [Smell of Curry YT](https://www.youtube.com/c/SmellofCurry)
- - [Download Anti-Cheat BEH](https://mcbehub.com/addons/server-gui-minecraft-addon)
- - [Download Anti-Cheat RES](https://mcbehub.com/addons/server-gui-minecraft-addon)
+ - [Download Anti-Cheat BEH](https://link-to.net/214841/smellyanticheatmcpack)
+ - [Download Anti-Cheat RES](https://file-link.net/214841/resmcpack)
 
   
 ## Authors
@@ -59,12 +59,6 @@ if you want to get your realm in here please join the discord https://discord.gg
 - Anti NBT
 - Anti Air-Jump
 - Anti Auto Totem
-  
-
-## Documentation
-
-[Documentation](https://mcbehub.com/realmdocs/custom-gui)
-
   
 ## Contributing
 
