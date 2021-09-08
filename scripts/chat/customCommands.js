@@ -4,7 +4,7 @@ export const commandPrefix = "-"
 
 export function customCommand(command, msg) {
     if (command.split(" ")[0] == "tp") {
-        runCommand(`execute "${msg.sender.name}" ~~~ tag @s add tpr`)
-        runCommand(`execute "${msg.sender.name}" ~~~ ${command}`)
+        runCommand(`execute "${msg.sender.name}" ~~~ execute @s[m=c] ~~~ tag @s add tpr`)
+        runCommand(`execute "${msg.sender.name}" ~~~ execute @s[m=c] ~~~ ${command}`)
     }
 }
