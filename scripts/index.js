@@ -1,22 +1,15 @@
-import { World, Commands } from "Minecraft"
-import { checkTags } from "./anticheat/tagManager.js"
+import { World } from "Minecraft"
 import { customCommand, commandPrefix } from "./chat/customCommands.js"
 import { beforeChat } from "./chat/rankTags.js"
 import { antiSpam } from "./chat/antiSpam.js"
 import { onSecond } from "./timer/onSecond.js"
 import { antiFly } from "./anticheat/antiFly.js"
+import { setTickInterval } from "./timer/scheduling.js"
 
-var tick = 0
-
-//Checks if a command was run (checks for the prefix)
-World.events.tick.subscribe(tickper => {
-    tick++
-    if (tick >= 20) {
-        onSecond()
-        tick = 0
-    }
-    antiFly()
-})
+setTickInterval(() => {
+    onSecond();
+    for(const player of World.getPlayers()) antiFly(player);
+}, 20); //Executes the stuff in between every 1 second
 
 World.events.beforeChat.subscribe(msg => {
     if (msg.message.substr(0, commandPrefix.length) == commandPrefix) {

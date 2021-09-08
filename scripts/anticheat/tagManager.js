@@ -1,4 +1,4 @@
-import { World, Commands } from "Minecraft"
+import { World } from "Minecraft"
 import { hasTag, ban, getScore } from "../includes/functions.js"
 
 const playerEffected = new Map();

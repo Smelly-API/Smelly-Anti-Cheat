@@ -1,4 +1,4 @@
-import { World, Commands } from "Minecraft"
+import { Commands } from "Minecraft"
 
 export function hasTag(target, testtag) {
     const command = runCommand(`tag "${target}" list`)
