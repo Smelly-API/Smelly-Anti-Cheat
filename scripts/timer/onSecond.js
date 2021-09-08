@@ -1,4 +1,3 @@
-import { World, Commands } from "Minecraft"
 import { runCommand } from "../includes/functions.js"
 
 var second = 0

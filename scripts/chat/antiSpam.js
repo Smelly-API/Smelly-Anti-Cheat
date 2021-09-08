@@ -1,4 +1,3 @@
-import { World, Commands } from "Minecraft"
 import { getScore, ban, runCommand } from "../includes/functions.js"
 
 const playerChat = new Map();
