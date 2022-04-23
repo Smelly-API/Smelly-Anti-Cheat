@@ -15,6 +15,7 @@ Best Anti cheat on minecraft bedrock, protects against almost every hack and wil
 
 - [@smell-of-curry](https://github.com/smell-of-curry)
 - [@balloon](https://github.com/balloon)
+- [@jacob](https://github.com/jacob)
 
   
 ## Feedback
