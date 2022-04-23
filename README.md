@@ -7,15 +7,13 @@ Best Anti cheat on minecraft bedrock, protects against almost every hack and wil
 ## Acknowledgements
 
  - [Smell of Curry YT](https://www.youtube.com/c/SmellofCurry)
- - [Download Anti-Cheat BEH](https://link-to.net/214841/smellyanticheatmcpack)
- - [Download Anti-Cheat RES](https://file-link.net/214841/resmcpack)
+ - [Download Anti-Cheat .mcpack](https://www.mediafire.com/file/jfie9m8n38ukmoa/Smelly+Anti+Cheat.mcpack/file)
+ - [Download Anti-Cheat .zip](https://www.mediafire.com/file/jm761u10a3z899v/Smelly+Anti+Cheat.zip/file)
 
   
 ## Authors
 
 - [@smell-of-curry](https://github.com/smell-of-curry)
-- [@balloon](https://github.com/balloon)
-- [@jacob](https://github.com/jacob)
 
   
 ## Feedback
