@@ -20,7 +20,7 @@ export class EntityBuilder {
    * @returns {Entity}
    * @example EntityBuilder.getEntityAtPos(0, 5, 0, { dimension: 'nether', ignoreType: ['minecraft:player']});
    */
-  getAtPos(x, y, z, dimension = "overworld") {
+  getAtPos({ x, y, z }, dimension = "overworld") {
     try {
       return world
         .getDimension(dimension)
@@ -51,7 +51,7 @@ export class EntityBuilder {
   /**
    * Returns a location of the inputed aguments
    * @param {Entity} entity your using
-   * @param {number} value what you want to search for
+   * @param {string} value what you want to search for
    * @example getTagStartsWith(Entity, 2)
    */
   getTagStartsWith(entity, value) {

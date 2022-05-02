@@ -1,5 +1,7 @@
 export const CONFIGURATION = {
-  VERSION: "3.0.0",
+  VERSION: "2.0.0",
+  BY_PASS_TAG: "staff",
+  APPEAL_LINK: "https://discord.gg/dMa3A5UYKX",
   BANNED_ITEMS: [
     "minecraft:portal",
     "minecraft:item.soul_campfire",
@@ -24,10 +26,17 @@ export const CONFIGURATION = {
     "minecraft:info_update2",
     "minecraft:stickyPistonArmCollision",
     "minecraft:movingblock",
+    "minecraft:moving_block",
     "minecraft:invisiblebedrock",
     "minecraft:glowingobsidian",
     "minecraft:flowing_water",
     "minecraft:flowing_lava",
     "minecraft:item.nether_sprouts",
+    "minecraft:shield"
+  ],
+  BANNED_BLOCKS: [
+    "minecraft:moving_block",
+    "minecraft:beehive",
+    "minecraft:beenest",
   ],
 };

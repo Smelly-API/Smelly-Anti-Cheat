@@ -1,15 +1,9 @@
-This addon is made by Smell of Curry, But also has more devolpers read README.md and so, is protected by copyright law.
+MIT License
 
-You may NOT redistribute any part of Realm GUI Content and/or claim/use it as your own.
-This addon is under personal use copyright license, however you may freely use it on your own realms/servers/worlds.
-Violating any of these terms may result in legal actions being taken.
+Copyright (c) 2021 Smelly API
 
-Made For:
-https://mcbehub.com/
-Mcbehub.com
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-Contact:
-https://discord.gg/dMa3A5UYKX
-Mcbehub.com Discord
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-Copyright ©2020-2024, Smell of curry (https://mcbehub.com/)
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

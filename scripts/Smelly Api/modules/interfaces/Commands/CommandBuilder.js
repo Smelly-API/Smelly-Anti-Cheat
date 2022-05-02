@@ -16,13 +16,26 @@ function getChatCommand(data) {
   const args = getChatAugments(data);
   let checker = (arr, target) => target.every((v, index) => v === arr[index]);
   let command = null;
-  for (const cmd of COMMAND_PATHS) {
-    if (checker(args, cmd.path)) command = cmd;
-    for (const aliase of cmd.aliases) {
-      let newPath = [...cmd.path];
-      newPath[0] = aliase;
-      if (checker(args, newPath)) command = cmd;
+  const cmds = {};
+  for (const command of COMMAND_PATHS) {
+    cmds[command.path] = command;
+    for (const aliase of command.aliases) {
+      let p = [...command.path];
+      p[0] = aliase;
+      cmds[p] = command;
     }
+    if (command.path.length > 1) {
+      const a = COMMAND_PATHS.find((cmd) => cmd.name == command.path[0]);
+      for (const aliase of a.aliases) {
+        let p = [...command.path];
+        p[0] = aliase;
+        cmds[p] = command;
+      }
+    }
+  }
+  for (let [path, cmd] of Object.entries(cmds)) {
+    path = path.split(",");
+    if (checker(args, path)) command = cmd;
   }
   return command;
 }
@@ -41,26 +54,50 @@ function getChatAugments(data) {
     .map((e) => e.replace(/"(.+)"/, "$1").toString());
 }
 
+const splitOn = (slicable, ...indices) =>
+  [0, ...indices].map((n, i, m) => slicable.slice(n, m[i + 1]));
+
 world.events.beforeChat.subscribe((data) => {
   try {
     if (!data.message.startsWith(SA.prefix)) return;
+    data.cancel = true;
     let args = getChatAugments(data);
     const command = getChatCommand(data);
-    if (!command)
+    if (!command || !command.tags.every((tag) => data.sender.hasTag(tag)))
       return SA.build.chat.broadcast(
         `commands.generic.unknown`,
         data.sender.nameTag,
-        [`§f${command}§c`]
+        [`§f${args[0]}§c`]
       );
-    data.cancel = true;
     args.shift();
     args = args.filter((el) => !command.path.includes(el)); // removes command and subcommands from path
-    for (const [index, option] of command.options.entries()) {
-      if (option.verify(args[index])) continue;
+    for (let [index, option] of command.options.entries()) {
+      if (option.type == "location") {
+        if (option.x.verify(args[index])) {
+          if (args?.[index + 1] && option.y.verify(args[index + 1])) {
+            if (args?.[index + 2] && option.z.verify(args[index + 2])) {
+              continue;
+            } else {
+              index += 2;
+            }
+          } else {
+            index += 1;
+          }
+        }
+      } else {
+        if (option.verify(args[index])) continue;
+      }
+      if (option.optional) break;
       return SA.build.chat.broadcast(
-        `commands.generic.parameter.invalid`,
+        `commands.generic.syntax`,
         data.sender.nameTag,
-        [args[index]]
+        [
+          `${SA.prefix}${command.path.join(" ")} ${args
+            .slice(0, index)
+            .join(" ")}`,
+          args[index],
+          args.slice(index + 1).join(" "),
+        ]
       );
     }
     command.sendCallback(data, args);
@@ -79,11 +116,11 @@ export class Command {
    * @param {Array<string>} CommandInfo.aliases other names for the command
    * @param {Array<string>} CommandInfo.tags required tags to use command
    * @param {Array<string>} CommandInfo.path a path of all the command it runs through ["maincommand", "firstsubcommand", "second subcommand"]
-   * @param {function(CommandCallback):CommandCallback} callback Code you want to execute when the command is executed
+   * @param {function(CommandCallback, Object)} callback Code you want to execute when the command is executed
    * @returns {void}
    * @example new CommandBuilder({ name: "good", description: "subcommand for worldedit" }, callback)
    */
-  constructor(CommandInfo, callback) {
+  constructor(CommandInfo, callback = null) {
     this.name = CommandInfo.name.toString().toLowerCase();
     this.description = CommandInfo.description;
     this.aliases = CommandInfo.aliases ?? [];
@@ -101,7 +138,7 @@ export class Command {
    * @param {string} SubCommandInfo.name name of the command
    * @param {string} SubCommandInfo.description name of the command
    * @param {Array<string>} SubCommandInfo.tags required tags to use command
-   * @param {function(CommandCallback):CommandCallback} callback Code you want to execute when the command is executed
+   * @param {function(CommandCallback, Object)} callback Code you want to execute when the command is executed
    * @example command.addSubCommand({ name: "good", description: "subcommand for worldedit" }, callback)
    */
   addSubCommand(SubCommandInfo, callback) {
@@ -124,11 +161,25 @@ export class Command {
    * @param {string} name name of the option
    * @param {string} type type number of option type
    * @param {string} description description of the option
-   * @returns {void}
+   * @param {Boolean} optional tells to script to allow the sender to not input this command
+   * @returns {Command}
    * @example command.addOption("amount", "int",  "The amount of items to drop")
    */
-  addOption(name, type, description) {
-    this.options.push(new CommandOption(name, type, description));
+  addOption(name, type, description, optional = false) {
+    if (type == "location") {
+      this.options.push({
+        name: name,
+        type: "location",
+        description: description,
+        optional: optional,
+        x: new CommandOption("x", type, description, optional),
+        y: new CommandOption("y", type, description, optional),
+        z: new CommandOption("z", type, description, optional),
+      });
+      return this;
+    }
+    this.options.push(new CommandOption(name, type, description, optional));
+    return this;
   }
   /**
    * Returns a commands name
@@ -146,6 +197,39 @@ export class Command {
    * @example this.sendCallback(BeforeChatEvent, ["2", "sd"])
    */
   sendCallback(data, args) {
-    this.callback(new CommandCallback(data, args));
+    if (!this.callback) return;
+    const options = {};
+    for (const [i, option] of this.options.entries()) {
+      if (option.type == "location") {
+        options[option.name] = SA.untils.formatter.parseLocationAugs(
+          [args[i], args[i + 1], args[i + 2]],
+          {
+            location: [
+              data.sender.location.x,
+              data.sender.location.y,
+              data.sender.location.z,
+            ],
+            viewVector: [
+              data.sender.viewVector.x,
+              data.sender.viewVector.y,
+              data.sender.viewVector.z,
+            ],
+          }
+        );
+        continue;
+      }
+      options[option.name] = option.validate(args[i]);
+    }
+    this.callback(new CommandCallback(data, args), options);
+  }
+  /**
+   * Registers a callback
+   * @param {function(CommandCallback, Object)} callback Code you want to execute when the command is executed
+   * @returns {Command}
+   * @example executes((ctx) => {})
+   */
+  executes(callback) {
+    this.callback = callback;
+    return this;
   }
 }

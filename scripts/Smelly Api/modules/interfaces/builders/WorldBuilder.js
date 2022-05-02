@@ -40,18 +40,6 @@ export class WorldBuilder {
     return [...world.getPlayers()].find((plr) => plr.nameTag === player);
   }
   /**
-   * Awaits tell the player can be fetched in the game
-   * @param {Player} player player to check
-   * @param {number} timeout time in ticks to unsubscribe
-   * @returns {Promise<Boolean>}
-   */
-  async playerInGame(player, timeout = 200) {
-    const sub = world.events.tick.subscribe((data) => {
-      if (this.has(player.nameTag))
-        return world.events.tick.unsubscribe(sub), true;
-    });
-  }
-  /**
    * Get entitie(s) at a position
    * @param {number} x X position of the entity
    * @param {number} y Y position of the entity

@@ -1,9 +1,21 @@
 import { world } from "mojang-minecraft";
-import * as SA from "../../../index.js";
 
-// Data is saved on scoreboards each table has a indevidual objective
-// each objective has a list of players and those players have data stored in there name
-// it is stored in Binary and cuts off and continues on another player if it becomes to long
+/**
+ * Minecraft Bedrock Gametest Database
+ * @license MIT
+ * @author Smell of curry
+ * @version 1.0.0
+ * --------------------------------------------------------------------------
+ * This database stores data on players inside a objective
+ * Each objective can only store 32768 string data inside its players
+ * So we split up the save and save it across chunks in multiple objectives
+ * --------------------------------------------------------------------------
+ */
+
+/**
+ * The max string size of a objective, 32768 is max NBT
+ */
+const MAX_DATABASE_STRING_SIZE = 32000;
 
 /**
  * Splits a string into chunk sizes
@@ -15,6 +27,50 @@ function chunkString(str, length) {
   return str.match(new RegExp(".{1," + length + "}", "g"));
 }
 
+/**
+ * Runs a Command
+ * @param {string} command a minecraft /command
+ * @param {string} dimension: "overworld" | "nether" | "the end"
+ * @param {boolean} debug: true console logs the command, else it runs command
+ * @example runCommand(`say test`)
+ */
+function runCommand(command, dimension = "overworld", debug = false) {
+  try {
+    return debug
+      ? console.warn(JSON.stringify(runCommand(command)))
+      : world.getDimension(dimension).runCommand(command);
+  } catch (error) {
+    return { error: true };
+  }
+}
+
+/**
+ * Convert string to binary
+ * @param {String} text you want to trasnslate to binary
+ * @returns {String}
+ */
+function textToBinary(text) {
+  return text
+    .split("")
+    .map((char) => {
+      return char.charCodeAt(0).toString(2);
+    })
+    .join(" ");
+}
+/**
+ * Convert binary to string
+ * @param {String} binary the binary that you want converted
+ * @returns {String}
+ */
+function binaryToText(binary) {
+  return binary
+    .split(" ")
+    .map((char) => {
+      return String.fromCharCode(parseInt(char, 2));
+    })
+    .join("");
+}
+
 export class Database {
   constructor(TABLE_NAME) {
     this.TABLE_NAME = TABLE_NAME;
@@ -24,12 +80,11 @@ export class Database {
   }
 
   fetch() {
-    const SCOREBOARD_DATA = this.SCOREBOARD_DATA;
     try {
       for (let i = 0; i <= this.SAVE_NAMES; i++) {
         const name = `DB_${this.TABLE_NAME}_${i}`;
         const regex = new RegExp(`(?<=${name}\\()[0-1\\s]+(?=\\))`);
-        const RAW_TABLE_DATA = SCOREBOARD_DATA.match(regex)[0];
+        const RAW_TABLE_DATA = this.SCOREBOARD_DATA.match(regex)[0];
         this.MEMORY.push({ index: i, data: `${RAW_TABLE_DATA}` });
       }
     } catch (error) {
@@ -38,13 +93,17 @@ export class Database {
   }
 
   build(objective = this.TABLE_NAME) {
-    SA.build.chat.runCommand(`scoreboard objectives add ${objective} dummy`);
-    SA.build.chat.runCommand(`scoreboard players add "DB_SAVE" ${objective} 0`);
+    runCommand(`scoreboard objectives add ${objective} dummy`);
+    runCommand(`scoreboard players add "DB_SAVE" ${objective} 0`);
   }
 
   wipe() {
     this.MEMORY = [];
-    SA.build.chat.runCommand(`scoreboard objectives remove ${this.TABLE_NAME}`);
+    for (let i = 0; i <= this.SAVE_NAMES; i++) {
+      const name = `DB_${this.TABLE_NAME}_${i}`;
+      runCommand(`scoreboard objectives remove ${name}`);
+    }
+    runCommand(`scoreboard objectives remove ${this.TABLE_NAME}`);
     this.build();
   }
 
@@ -79,9 +138,7 @@ export class Database {
    */
   get data() {
     try {
-      const data = this.MEMORY.map((a) =>
-        SA.untils.formatter.binaryToText(a.data)
-      );
+      const data = this.MEMORY.map((a) => binaryToText(a.data));
       return JSON.parse(data.join(""));
     } catch (error) {
       return {};
@@ -95,21 +152,19 @@ export class Database {
   save(json) {
     const SPLIT_DATA = chunkString(
       JSON.stringify(json),
-      SA.config.MAX_DATABASE_STRING_SIZE
+      MAX_DATABASE_STRING_SIZE
     );
     this.wipe();
     for (const [index, chunk] of SPLIT_DATA.entries()) {
       const name = `DB_${this.TABLE_NAME}_${index}`;
       this.SAVE_NAMES = index;
+      const data = textToBinary(chunk);
       this.MEMORY.push({
         index: index,
-        data: SA.untils.formatter.textToBinary(chunk),
+        data: data,
       });
-      SA.build.chat.runCommand(
-        `scoreboard players set "${name}(${SA.untils.formatter.textToBinary(
-          chunk
-        )})" ${this.TABLE_NAME} 0`
-      );
+      runCommand(`scoreboard objectives add ${name} dummy`);
+      runCommand(`scoreboard players set "${name}(${data})" ${name} 0`);
     }
   }
 
@@ -164,8 +219,7 @@ export class Database {
    * @example Database.keys();
    */
   keys() {
-    let json = this.data;
-    return Object.keys(json);
+    return Object.keys(this.data);
   }
   /**
    * Get all the values in the table
@@ -173,8 +227,7 @@ export class Database {
    * @example Database.values();
    */
   values() {
-    let json = this.data;
-    return Object.values(json);
+    return Object.values(this.data);
   }
   /**
    * Gets all the keys and values
@@ -182,7 +235,6 @@ export class Database {
    * @example Database.getCollection();
    */
   getCollection() {
-    let json = this.data;
-    return json;
+    return this.data;
   }
 }

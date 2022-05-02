@@ -7,7 +7,6 @@ import { world } from "mojang-minecraft";
  * @returns {Promise<void>}
  */
 export const sleep = (tick) => {
-  console.warn(`new slee ${tick}`)
   return new Promise((resolve) => setTickTimeout(resolve, tick));
 };
 

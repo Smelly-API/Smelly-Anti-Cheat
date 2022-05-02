@@ -29,8 +29,12 @@ new SA.build.Command(
     }
     if (page > maxPages) page = maxPages;
     ctx.reply(`commands.help.header`, [page, maxPages]);
+
     for (const command of COMMAND_PATHS.slice(page * 10 - 10, page * 10)) {
-      ctx.reply(`-${command.path.join(" ")} args`);
+      const options = command.options.map(
+        (option) => `<${option.name}: ${option.type}>`
+      );
+      ctx.reply(`-${command.path.join(" ")} ${options.join(" ")}`);
     }
   }
 );

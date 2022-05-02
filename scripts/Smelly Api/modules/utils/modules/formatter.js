@@ -152,6 +152,7 @@ function parseLocationAugs([x, y, z], { location, viewVector }) {
   });
   return new BlockLocation(b[0], b[1], b[2]);
 }
+
 export {
   rainbowText,
   metricNumbers,
