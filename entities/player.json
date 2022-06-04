@@ -5,7 +5,33 @@
       "identifier": "minecraft:player",
       "is_spawnable": true,
       "is_summonable": true,
-      "is_experimental": false
+      "is_experimental": false,
+      "animations": {
+        "digging": "controller.animation.digging",
+        "eating": "controller.animation.eating",
+        "gliding": "controller.animation.gliding",
+        "ground": "controller.animation.ground",
+        "jumping": "controller.animation.jumping",
+        "levitating": "controller.animation.levitating",
+        "moving": "controller.animation.moving",
+        "riding": "controller.animation.riding",
+        "swimming": "controller.animation.swimming",
+        "using_item": "controller.animation.using_item"
+      },
+      "scripts": {
+        "animate": [
+          "digging",
+          "eating",
+          "gliding",
+          "ground",
+          "jumping",
+          "levitating",
+          "moving",
+          "riding",
+          "swimming",
+          "using_item"
+        ]
+      }
     },
     "component_groups": {
       "minecraft:add_bad_omen": {
@@ -41,12 +67,45 @@
           "remove_effects": "bad_omen"
         }
       },
-      "binocraft:kick": {
+      "kick": {
         "minecraft:instant_despawn": {},
         "minecraft:explode": {}
       }
     },
     "components": {
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "on_damage": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "has_tag",
+                    "subject": "self",
+                    "value": "protected"
+                  }
+                ]
+              }
+            },
+            "deals_damage": false
+          },
+          {
+            "on_damage": {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "has_tag",
+                    "subject": "self",
+                    "value": "cps_protection"
+                  }
+                ]
+              }
+            },
+            "deals_damage": false,
+            "event": "remove_cps_protection_tag"
+          }
+        ]
+      },
       "minecraft:type_family": {
         "family": ["player"]
       },
@@ -175,6 +234,26 @@
               ]
             },
             "event": "we:wand_not_in_hand"
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_container_open"
+                }
+              ]
+            },
+            "event": "mcbehub:has_container_open"
+          },
+          {
+            "filters": {
+              "none_of": [
+                {
+                  "test": "has_container_open"
+                }
+              ]
+            },
+            "event": "mcbehub:dosent_have_container_open"
           }
         ]
       },
@@ -183,6 +262,21 @@
       }
     },
     "events": {
+      "remove_cps_protection_tag": {
+        "run_command": {
+          "command": ["tag @s remove cps_protection"]
+        }
+      },
+      "mcbehub:has_container_open": {
+        "run_command": {
+          "command": ["tag @s add has_container_open"]
+        }
+      },
+      "mcbehub:dosent_have_container_open": {
+        "run_command": {
+          "command": ["tag @s remove has_container_open"]
+        }
+      },
       "we:wand_in_hand": {
         "run_command": {
           "command": ["tag @s add hasWandInHand"]
@@ -199,9 +293,9 @@
           "target": "self"
         }
       },
-      "binocraft:kick": {
+      "kick": {
         "add": {
-          "component_groups": ["binocraft:kick"]
+          "component_groups": ["kick"]
         }
       },
       "minecraft:gain_bad_omen": {

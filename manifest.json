@@ -4,15 +4,15 @@
     "name": "pack.name",
     "description": "pack.description",
     "min_engine_version": [1, 17, 0],
-    "uuid": "f90a7b7f-a931-4a6b-b187-879132f01188",
-    "version": [3, 0, 0]
+    "uuid": "c73f7c75-712b-4178-bcd6-323693109dac",
+    "version": [4, 0, 0]
   },
   "modules": [
     {
       "description": "Data Module",
       "type": "data",
-      "uuid": "e2eeb602-890d-4716-aa0e-e5bf86d5f72c",
-      "version": [3, 0, 0]
+      "uuid": "2692a2fa-0d35-4fcd-860a-3a496732725d",
+      "version": [4, 0, 0]
     },
     {
       "description": "Gametest Module",
@@ -23,14 +23,19 @@
     }
   ],
   "dependencies": [
-    // mojang-minecraft module
     {
+      "description": "mojang-minecraft module",
       "uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
       "version": [0, 1, 0]
     },
     {
-      // mojang-gametest
+      "description": "mojang-gametest module",
       "uuid": "6f4b6893-1bb6-42fd-b458-7fa3d0c89616",
+      "version": [0, 1, 0]
+    },
+    {
+      "description": "mojang-minecraft-ui module",
+      "uuid": "2BD50A27-AB5F-4F40-A596-3641627C635E",
       "version": [0, 1, 0]
     }
   ],
