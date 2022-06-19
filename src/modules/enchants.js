@@ -41,11 +41,11 @@ forEachValidPlayer((player) => {
         enchantments.removeEnchantment(ItemEnchantment.type);
         change = true;
       };
-      console.warn(`slot ${slot}`);
-      if (slot == 0) {
+      if (enchantments.slot == 0) {
         if (!enchantments.canAddEnchantment(ItemEnchantment)) remove();
       } else {
-        if (ItemEnchantment.level > slot[ItemEnchantment.type.id]) remove();
+        if (ItemEnchantment.level > (slot[ItemEnchantment.type.id] ?? 0))
+          remove();
       }
     }
     if (!change) continue;
