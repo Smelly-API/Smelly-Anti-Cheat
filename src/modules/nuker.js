@@ -113,6 +113,7 @@ world.events.blockBreak.subscribe(
     if (BLOCK_CONTAINERS.includes(brokenBlockPermutation.type.id)) {
       const OLD_INVENTORY = CONTAINER_LOCATIONS[JSON.stringify(block.location)];
       OLD_INVENTORY.load(block.getComponent("inventory").container);
+      delete CONTAINER_LOCATIONS[JSON.stringify(block.location)];
     }
     SA.Utilities.time.setTickTimeout(() => {
       const q = new EntityQueryOptions();
