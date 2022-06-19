@@ -1,4 +1,4 @@
-import { SA } from "../../../../index.js";
+import { SA } from "../../../../../index.js";
 import { STAFF_TAG } from "../../config.js";
 import { db_bans } from "../../index.js";
 

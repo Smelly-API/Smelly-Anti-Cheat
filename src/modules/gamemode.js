@@ -1,6 +1,6 @@
 import { EntityQueryOptions, GameMode, world } from "mojang-minecraft";
 import { STAFF_TAG } from "../config.js";
-import { Ban } from "../utils/Ban.js";
+import { Ban } from "../../utils/Ban.js";
 
 /**
  * Minecraft Bedrock Anti Gamemode

@@ -1,6 +1,6 @@
 import { world } from "mojang-minecraft";
-import { SA } from "../../../../../index.js";
-import { db_mutes } from "../../index.js";
+import { SA } from "../../../../index.js";
+import { db_mutes } from "../../src/index.js";
 
 world.events.beforeChat.subscribe((data) => {
   if (data.message.startsWith(SA.config.commands.PREFIX)) return;

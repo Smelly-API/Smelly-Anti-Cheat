@@ -5,7 +5,7 @@ import {
   Player,
   world,
 } from "mojang-minecraft";
-import { SA } from "../../../index.js";
+import { SA } from "../../../../index.js";
 import { PLAYERS } from "../utils/Players.js";
 
 /**

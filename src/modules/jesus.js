@@ -1,4 +1,4 @@
-import { SA } from "../../../index.js";
+import { SA } from "../../../../index.js";
 import { PlayerLog } from "../utils/PlayerLog.js";
 import { forEachValidPlayer } from "../utils/Players.js";
 import { PreviousLocation as PrevLo } from "../utils/PreviousLocation.js";

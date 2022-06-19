@@ -1,5 +1,3 @@
-import { SA } from "../../index.js";
-
 /**
  * The version of the Anti cheat
  */

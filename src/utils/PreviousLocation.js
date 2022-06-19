@@ -12,7 +12,7 @@ export class PreviousLocation {
     this.player = player;
     this.location = player.location;
     this.dimension = player.dimension;
-    this.bodyRotation = player.bodyRotation;
+    this.rotation = player.rotation;
     this.tick = tick;
     this.storage = storage;
 
@@ -29,7 +29,12 @@ export class PreviousLocation {
    * Teleports the player back to the previous location
    */
   back() {
-    this.player.teleport(this.location, this.dimension, 0, this.bodyRotation);
+    this.player.teleport(
+      this.location,
+      this.dimension,
+      this.rotation.x,
+      this.rotation.y
+    );
   }
 
   /**
@@ -42,7 +47,7 @@ export class PreviousLocation {
     });
     this.location = this.player.location;
     this.dimension = this.player.dimension;
-    this.bodyRotation = this.player.bodyRotation;
+    this.rotation = this.player.rotation;
   }
 
   /**

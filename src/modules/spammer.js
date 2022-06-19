@@ -1,5 +1,5 @@
 import { world } from "mojang-minecraft";
-import { SA } from "../../../index.js";
+import { SA } from "../../../../index.js";
 import { PlayerLog } from "../utils/PlayerLog.js";
 
 /**

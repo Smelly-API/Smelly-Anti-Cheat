@@ -1,5 +1,5 @@
 import { Player } from "mojang-minecraft";
-import { SA } from "../../../index.js";
+import { SA } from "../../../../index.js";
 import { db_mutes } from "../index.js";
 
 export class Mute {

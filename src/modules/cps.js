@@ -1,5 +1,5 @@
 import { world, EntityHealthComponent } from "mojang-minecraft";
-import { SA } from "../../../index.js";
+import { SA } from "../../../../index.js";
 import { Ban } from "../utils/Ban";
 import { PlayerLog } from "../utils/PlayerLog";
 

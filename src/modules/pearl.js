@@ -1,5 +1,5 @@
 import { world, EntityHealthComponent } from "mojang-minecraft";
-import { SA } from "../../../index.js";
+import { SA } from "../../../../index.js";
 
 /**
  * Minecraft Bedrock Anti Ender Pearl Glitching

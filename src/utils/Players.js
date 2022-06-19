@@ -1,5 +1,5 @@
 import { EntityQueryOptions, world, Player, TickEvent } from "mojang-minecraft";
-import { SA } from "../../../index.js";
+import { SA } from "../../../../index.js";
 import { STAFF_TAG } from "../config";
 
 const q = new EntityQueryOptions();
