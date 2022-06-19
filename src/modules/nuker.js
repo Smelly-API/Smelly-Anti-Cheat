@@ -1,6 +1,15 @@
-import { world } from "mojang-minecraft";
+import {
+  BlockAreaSize,
+  BlockInventoryComponent,
+  BlockInventoryComponentContainer,
+  BlockLocation,
+  EntityQueryOptions,
+  world,
+  Location,
+} from "mojang-minecraft";
 import { SA } from "../../../../index.js";
 import { STAFF_TAG } from "../config.js";
+import { BlockInventory } from "../utils/BlockInventory.js";
 import { PlayerLog } from "../utils/PlayerLog.js";
 
 /**
@@ -46,21 +55,75 @@ const IMPOSSIBLE_BREAKS = [
   "minecraft:bedrock",
 ];
 
+/**
+ * A List of all containers a item could be in
+ */
+const BLOCK_CONTAINERS = [
+  "minecraft:chest",
+  //"minecraft:barrel",
+  "minecraft:trapped_chest",
+  //"minecraft:dispenser",
+  //"minecraft:dropper",
+  //"minecraft:furnace",
+  //"minecraft:blast_furnace",
+  //"minecraft:lit_furnace",
+  //"minecraft:lit_blast_furnace",
+  //"minecraft:hopper",
+  //"minecraft:shulker_box",
+  //"minecraft:undyed_shulker_box",
+];
+
+/**
+ * The block size to check for blockContainers
+ */
+const CHECK_SIZE = { x: 7, y: 7, z: 7 };
+
+/**
+ * Block Location to block inventory component
+ * @type {Object<string, BlockInventory>}
+ */
+const CONTAINER_LOCATIONS = {};
+
+world.events.tick.subscribe((data) => {
+  for (const player of world.getPlayers()) {
+    const blockLoc = SA.Models.entity.locationToBlockLocation(player.location);
+    const pos1 = blockLoc.offset(CHECK_SIZE.x, CHECK_SIZE.y, CHECK_SIZE.z);
+    const pos2 = blockLoc.offset(-CHECK_SIZE.x, -CHECK_SIZE.y, -CHECK_SIZE.z);
+
+    for (const location of pos1.blocksBetween(pos2)) {
+      const block = player.dimension.getBlock(location);
+      if (!BLOCK_CONTAINERS.includes(block.id)) continue;
+      CONTAINER_LOCATIONS[JSON.stringify(location)] = new BlockInventory(
+        block.getComponent("inventory").container
+      );
+    }
+  }
+});
+
 world.events.blockBreak.subscribe(
   ({ block, brokenBlockPermutation, dimension, player }) => {
     if (player.hasTag(STAFF_TAG)) return;
     if (block.getTags().some((tag) => TAGS.includes(tag))) return;
     const old = log.get(player);
     log.set(player, Date.now());
-    if (old < Date.now() - 50 || IMPOSSIBLE_BREAKS.includes(block.id)) return;
+    if (old < Date.now() - 70 || IMPOSSIBLE_BREAKS.includes(block.id)) return;
     dimension
       .getBlock(block.location)
       .setPermutation(brokenBlockPermutation.clone());
+    if (BLOCK_CONTAINERS.includes(brokenBlockPermutation.type.id)) {
+      const OLD_INVENTORY = CONTAINER_LOCATIONS[JSON.stringify(block.location)];
+      OLD_INVENTORY.load(block.getComponent("inventory").container);
+    }
     SA.Utilities.time.setTickTimeout(() => {
-      dimension
-        .getEntitiesAtBlockLocation(block.location)
-        .filter((entity) => entity.id === "minecraft:item")
-        .forEach((item) => item.kill());
-    }, 2);
+      const q = new EntityQueryOptions();
+      q.maxDistance = 2;
+      q.type = "minecraft:item";
+      q.location = new Location(
+        block.location.x,
+        block.location.y,
+        block.location.z
+      );
+      [...dimension.getEntities(q)].forEach((e) => e.kill());
+    }, 0);
   }
 );
