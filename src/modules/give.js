@@ -5,8 +5,7 @@ import {
   Player,
   world,
 } from "mojang-minecraft";
-import { SA } from "../../../../index.js";
-import { PLAYERS } from "../utils/Players.js";
+import { forEachValidPlayer } from "../utils/Players.js";
 
 /**
  * Minecraft Bedrock Anti Give
@@ -57,19 +56,11 @@ world.events.playerJoin.subscribe((data) => {
   INVENTORYS[data.player.name] = getInventoryItems(data.player);
 });
 
-SA.Utilities.time.setTickInterval(() => {
-  try {
-    for (const player of PLAYERS) {
-      const oldInv = INVENTORYS[player.name];
-      const currentInv = getInventoryItems(player);
-      console.warn(
-        JSON.stringify(
-          findDiffrences(oldInv, currentInv).map((i) => (i = i.id))
-        )
-      );
-      INVENTORYS[player.name] = currentInv;
-    }
-  } catch (error) {
-    console.warn(error + error.stack);
-  }
-}, 20);
+forEachValidPlayer((player) => {
+  const oldInv = INVENTORYS[player.name];
+  const currentInv = getInventoryItems(player);
+  console.warn(
+    JSON.stringify(findDiffrences(oldInv, currentInv).map((i) => (i = i.id)))
+  );
+  INVENTORYS[player.name] = currentInv;
+}, 50);

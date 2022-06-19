@@ -5,7 +5,7 @@ import { STAFF_TAG } from "../config";
 const q = new EntityQueryOptions();
 q.excludeTags = [STAFF_TAG];
 
-export const PLAYERS = world.getPlayers(q);
+export const STAFF_QUERY = q;
 
 /**
  * Sends a callback for each player
