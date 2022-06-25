@@ -1,4 +1,5 @@
 import { Entity, EntityQueryOptions, world } from "mojang-minecraft";
+import { SA } from "../../../../index.js";
 
 /**
  * Minecraft Bedrock Anti Gamemode
@@ -32,14 +33,14 @@ world.events.entityCreate.subscribe(({ entity }) => {
   LAST_ENTIY_SPAWN = Date.now();
   if (!old || IGNORE_ENTITIES.includes(entity.id)) return;
 
-  const kill = () => entity.kill();
-  if (old >= Date.now() - 100) return kill();
+  const kill = (e = entity) => SA.Models.entity.despawn(e);
+  if (old >= Date.now() - 50) return kill();
   const q = new EntityQueryOptions();
   q.excludeTypes = IGNORE_ENTITIES;
   /**
    * @type {Array<Entity>}
    */
-  const worldEntites = [];
+  let worldEntites = [];
 
   for (const dimension of [
     "minecraft:overworld",
@@ -50,9 +51,12 @@ world.events.entityCreate.subscribe(({ entity }) => {
       worldEntites.push(entity)
     );
   }
-  if (worldEntites.length >= MAX_WORLD_ENTITIES) {
-    for (const entity of worldEntites) {
-      entity.kill();
-    }
+  if (worldEntites.length < MAX_WORLD_ENTITIES) return;
+  for (const entity of worldEntites) {
+    kill(entity);
   }
+  SA.Providers.chat.broadcast(
+    `[Smelly-Anti-Cheat] Despawned ${worldEntites.length}x Entitys`
+  );
+  worldEntites = [];
 });
